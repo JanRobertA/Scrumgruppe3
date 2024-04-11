@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-
+##dette er en test
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Legg til en hemmelig nøkkel for å bruke flash-meldinger
 
