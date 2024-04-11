@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logg inn</title>
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Plasserer elementene i en kolonne */
+        }
+
+        .login-form {
+            margin-top: 20px; /* Gir litt avstand over skjemaet */
+        }
+
+        .login-form input {
+            margin-bottom: 10px; /* Gir litt avstand mellom inputfeltene */
+        }
+    </style>
+</head>
+<body>
+    <div class="center-content">
+        <h1>Logg inn</h1>
+        <div class="login-form">
+            <form action="/login" method="post">
+                <label for="email">E-post:</label>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="password">Passord:</label>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Logg inn">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

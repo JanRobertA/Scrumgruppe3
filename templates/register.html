@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrering</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Plasserer elementene i en kolonne */
+        }
+
+        .register-form {
+            margin-top: 20px; /* Gir litt avstand over skjemaet */
+            max-width: 400px; /* Begrenser bredden til 400 piksler */
+            width: 100%; /* Fyller tilgjengelig bredde */
+        }
+
+        .register-form input,
+        .register-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .register-form label {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-content">
+        <h1>Registrering</h1>
+        <div class="register-form">
+            <form action="/register" method="post">
+                <label for="fornavn">Fornavn:</label>
+                <input type="text" id="fornavn" name="fornavn" required>
+                <label for="etternavn">Etternavn:</label>
+                <input type="text" id="etternavn" name="etternavn" required>
+                <label for="epost">E-post:</label>
+                <input type="email" id="epost" name="epost" required>
+                <label for="passord">Passord:</label>
+                <input type="password" id="passord" name="passord" required>
+                <label for="telefonnummer">Telefonnummer:</label>
+                <input type="text" id="telefonnummer" name="telefonnummer">
+                <label for="adresse">Adresse:</label>
+                <textarea id="adresse" name="adresse"></textarea>
+                <input type="submit" value="Registrer">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

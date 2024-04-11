@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nettside</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="toolbar">
+            <ul>
+                <li><a href="/">Hjem</a></li>
+                <li><a href="/catalog">Katalog</a></li>
+                <li><a href="/about">Om oss</a></li>
+                <li><a href="/contact">Kontakt</a></li>
+            </ul>
+            <ul>
+                <li><a href="/login">Logg inn</a></li>
+                <li><a href="/register">Registrer</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="welcome">
+        <div class="container">
+            <h1>Velkommen til Biblioteket</h1>
+            <p>Vi tilbyr et bredt utvalg av bøker og tidsskrifter.</p>
+            <p>Utforsk vår katalog, lån bøker, og nyt en rolig leseopplevelse.</p>
+            <a href="/catalog" class="btn">Utforsk vår katalog</a>
+        </div>
+    </div>
+</body>
+</html>

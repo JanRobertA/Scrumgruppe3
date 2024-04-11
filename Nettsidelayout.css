@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toolbar ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.toolbar ul:last-child {
+    margin-left: auto;
+}
+
+.toolbar ul:last-child li {
+    margin-left: 0;
+    margin-right: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.welcome {
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.welcome .container {
+    text-align: center;
+}
+
+.welcome h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.welcome p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Legg til følgende CSS-kode for å plassere Logg inn og Registrer på høyre side av verktøylinjen */
+.toolbar ul:last-child {
+    margin-left: auto;
+}
+
+.toolbar ul:last-child li {
+    margin-left: 0;
+    margin-right: 20px;
+}
