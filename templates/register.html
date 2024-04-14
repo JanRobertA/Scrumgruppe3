@@ -31,9 +31,53 @@
         .register-form label {
             margin-bottom: 5px;
         }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .button-container input[type="submit"], .button-container input[type="button"] {
+            width: 48%; /* Deler bredden mellom to knapper */
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .button-container input[type="button"] {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .button-container input[type="button"]:hover {
+            background-color: #007a9b;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .home-button:hover {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
+    <a href="{{ url_for('index') }}" class="home-button">Hjem</a>
     <div class="center-content">
         <h1>Registrering</h1>
         <div class="register-form">
@@ -50,7 +94,10 @@
                 <input type="text" id="telefonnummer" name="telefonnummer">
                 <label for="adresse">Adresse:</label>
                 <textarea id="adresse" name="adresse"></textarea>
-                <input type="submit" value="Registrer">
+                <div class="button-container">
+                    <input type="submit" value="Registrer">
+                    <input type="button" value="Logg inn" onclick="window.location.href='/login'">
+                </div>
             </form>
         </div>
     </div>

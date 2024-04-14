@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logg inn</title>
-     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <style>
         .center-content {
             display: flex;
@@ -16,23 +16,80 @@
 
         .login-form {
             margin-top: 20px; /* Gir litt avstand over skjemaet */
+            max-width: 400px; /* Begrenser bredden til 400 piksler */
+            width: 100%; /* Fyller tilgjengelig bredde */
         }
 
         .login-form input {
-            margin-bottom: 10px; /* Gir litt avstand mellom inputfeltene */
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .login-form label {
+            margin-bottom: 5px;
+        }
+
+        .login-form input[type="submit"],
+        .login-form input[type="button"] {
+            width: calc(50% - 5px); /* Deler bredden likt mellom knappene med litt mellomrom */
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .login-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .login-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .login-form input[type="button"] {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .login-form input[type="button"]:hover {
+            background-color: #007a9b;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .home-button:hover {
+            color: #007bff;
         }
     </style>
 </head>
 <body>
+    <a href="{{ url_for('index') }}" class="home-button">Hjem</a>
     <div class="center-content">
         <h1>Logg inn</h1>
         <div class="login-form">
             <form action="/login" method="post">
-                <label for="email">E-post:</label>
-                <input type="email" id="email" name="email" required><br><br>
-                <label for="password">Passord:</label>
-                <input type="password" id="password" name="password" required><br><br>
-                <input type="submit" value="Logg inn">
+                <label for="epost">E-post:</label>
+                <input type="email" id="epost" name="epost" required>
+                <label for="passord">Passord:</label>
+                <input type="password" id="passord" name="passord" required>
+                <div class="button-container">
+                    <input type="submit" value="Logg inn">
+                    <input type="button" value="Registrer deg" onclick="window.location.href='/register'">
+                </div>
             </form>
         </div>
     </div>
