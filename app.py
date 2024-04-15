@@ -49,7 +49,7 @@ def load_user(user_id):
 # Hovedside
 @app.route('/')
 def index():
-    return render_template('Nettside.html')
+    return render_template('Nettside.html')77777
 
 
 # Innloggingsside
