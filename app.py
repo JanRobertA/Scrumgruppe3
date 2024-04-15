@@ -3,9 +3,9 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-##dette er en test
+
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Legg til en hemmelig nøkkel for å bruke flash-meldinger
+app.secret_key = 'your_secret_key'
 
 # Konfigurer databasetilkoblingen
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:gokstad@localhost:3306/scrum_gruppe3'
@@ -30,6 +30,10 @@ class Users(UserMixin, db.Model):
     adresse = db.Column(db.Text)
     registreringsdato = db.Column(db.Date, nullable=False)
     rolle = db.Column(db.Enum('admin', 'student'), default='student')
+
+    # Implementer get_id-metoden
+    def get_id(self):
+        return str(self.user_id)
 
 
 # Opprett databasetabellene
@@ -58,18 +62,37 @@ def login():
         if user and check_password_hash(user.passord_hash, passord):
             login_user(user)
             flash('Du er nå logget inn!', 'success')
-            return redirect(url_for('dashboard'))
+            if user.rolle == 'admin':
+                return redirect(url_for('admin'))
+            elif user.rolle == 'student':
+                return redirect(url_for('bibliotek'))
+            else:
+                flash('Ugyldig rolle for bruker.', 'danger')
         else:
             flash('Feil e-post eller passord. Vennligst prøv igjen.', 'danger')
     return render_template('login.html')
 
 
-# Dashboard etter innlogging
-@app.route('/dashboard')
+# Adminside
+@app.route('/admin')
 @login_required
-def dashboard():
-    # Du kan legge til innhold for dashboard-siden her
-    return "Dette er dashboard-siden etter vellykket innlogging."
+def admin():
+    if current_user.rolle == 'admin':
+        return render_template('admin.html', navn=current_user.fornavn)
+    else:
+        flash('Du har ikke tilgang til denne siden.', 'danger')
+        return redirect(url_for('index'))
+
+
+# Bibliotekside
+@app.route('/bibliotek')
+@login_required
+def bibliotek():
+    if current_user.rolle == 'student' or current_user.rolle == 'admin':
+        return render_template('bibliotek.html', navn=current_user.fornavn)
+    else:
+        flash('Du har ikke tilgang til denne siden.', 'danger')
+        return redirect(url_for('index'))
 
 
 # Utlogging
@@ -96,11 +119,10 @@ def register():
 
         # Opprett en ny bruker i databasen
         new_user = Users(fornavn=fornavn, etternavn=etternavn, epost=epost,
-                        passord_hash=hashed_password, telefonnummer=telefonnummer,
-                        adresse=adresse, registreringsdato='2024-04-11')
+                         passord_hash=hashed_password, telefonnummer=telefonnummer,
+                         adresse=adresse, registreringsdato='2024-04-11')
         db.session.add(new_user)
         db.session.commit()
-        print(new_user)
 
         flash('Bruker opprettet vellykket! Du kan nå logge inn.')
         return redirect(url_for('login'))  # Omdiriger til logg inn siden
