@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard</title>
+    <meta charset="=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dine lånte bøker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body {
+<style>
+    body {
             font-family:'Times New Roman', Times, serif;
             background-color: #ffffff;
             margin: 0;
@@ -24,7 +26,6 @@
             text-decoration: none;
             font-size: 18px;
             display: block;
-            color: #555; /* Legg til farge for alle knapper */
         }
         .w3-sidebar a:hover {
             background-color: #ddd;
@@ -58,8 +59,8 @@
     </style>
 </head>
 <body>
-
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card">
+    <h1></h1>
+    <div class="w3-sidebar w3-bar-block w3-light-grey w3-card">
         <a href="{{ url_for('bibliotek') }}" class="w3-bar-item w3-button">Hjem</a>
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
             Min side <i class="fa fa-caret-down"></i>
@@ -70,20 +71,17 @@
             <a href="your_loands" class="w3-bar-item w3-button">Se dine lånte bøker</a>
         </div>
         <a href="retningslinjer.html" class="w3-bar-item w3-button">Retningslinjer</a>
-    <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
+            <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
+
     </div>
     <div class="w3-main">
-    <h2>Velkommen til biblioteket {{ navn }}!</h2>
-    <div class="container">
-        <ul>
-            {{ greeting }}
-        </ul>
+        <h2>Se dine lånte bøker</h2>
+        <div class="container">
 
         </div>
         <footer>
         </footer>
     </div>
-
 
     <script>
         doucement.querySelectorAll('.w3-sidebar a').forEach(link => {

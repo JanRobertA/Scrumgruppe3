@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family:'Times New Roman', Times, serif; 
+            background-color: #ffffff;
+            margin: 0;
+        }
+        .w3-sidebar {
+            height: 100%;
+            width: 160px;
+            background-color: #f1f1f1;
+            position: fixed;
+            z-index: 1;
+            overflow: auto;
+        }
+        .w3-sidebar a {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+        }
+        .w3-sidebar a:hover {
+            background-color: #ddd;
+        }
+        .w3-main {
+            margin-left: 160px;
+            padding: 20px;
+        }
+        h2 {
+            color: #397652;
+        }
+        ul {
+            padding: 0;
+            list-style-type: none;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #48a5a5;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: right;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card">
+    <a href="#" class="w3-bar-item w3-button">Meny</a>
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
+        Bibliotek <i class="fa fa-caret-down"></i>
+    </button>
+    <div id="demoAcc" class="w3-hide w3-white w3-card">
+        <a href="loan_book.html" class="w3-bar-item w3-button">Lån bøker</a>
+        <a href="availablebooks.html" class="w3-bar-item w3-button">Se tilgjengelige bøker</a>
+        <a href="your_loands.html" class="w3-bar-item w3-button">Se dine lånte bøker</a>
+    </div>
+    <a href="min_side.html" class="w3-bar-item w3-button">Min side</a>
+    <a href="retningslinjer.html" class="w3-bar-item w3-button">Retningslinjer</a>
+</div>
+
+<div class="w3-main">
+    <h2>Velkommen til biblioteket, [navn]!</h2>
+    <div class="container">
+        <ul>
+            <!-- Her kan du legge til annet innhold etter behov -->
+        </ul>
+    </div>
+    <footer>
+        <p><a href="logout.html">Logg ut</a></p> 
+    </footer>
+</div>
+
+<script>
+    function myAccFunc() {
+        var x = document.getElementById("demoAcc");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-green";
+        } else { 
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className = 
+            x.previousElementSibling.className.replace(" w3-green", "");
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Endre litteratur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .w3-sidebar {
+            height: 100%;
+            width: 160px;
+            background-color: #f1f1f1;
+            position: fixed;
+            z-index: 1;
+            overflow: auto;
+        }
+
+        .w3-sidebar a {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            text-align: center;
+            color: black;
+        }
+
+        .w3-sidebar a:hover {
+            background-color: blue;
+            color: white;
+        }
+
+        .w3-main {
+            margin-left: 160px;
+            padding: 20px;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        /* Justere tekstrørelse for sidebaren */
+        .w3-sidebar .w3-bar-item {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body style="background-color:white;">
+
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card">
+    <a href="{{ url_for('admin') }}" class="w3-bar-item w3-button">Meny</a>
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
+    Brukere <i class="fa fa-caret-down"></i>
+    </button>
+    <div id="demoAcc" class="w3-hide w3-white w3-card">
+        <a href="/Brukere" class="w3-bar-item w3-button">Brukere</a>
+        <a href="/Purringer" class="w3-bar-item w3-button">Purringer</a>
+    </div>
+
+    <div class="w3-dropdown-click">
+        <button class="w3-button" onclick="myDropFunc()">
+        Litteratur <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="demoDrop" class="w3-dropdown-content w3-bar-block w3-white w3-card">
+            <a href="/Litteratur_oversikt" class="w3-bar-item w3-button">Litteratur oversikt</a>
+            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til/fjern litteratur</a>
+
+        </div>
+    </div>
+    <a href="/Retningslinjer" class="w3-bar-item w3-button">Retningslinjer</a>
+        <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
+
+</div>
+
+<div class="w3-main">
+    <h3>Legg til eller fjern litteratur i biblioteket jevnlig for å holde biblioteket oppdatert</h3>
+</div>
+
+<img src="boker.jpg" alt="Boker" style="width:50%; display:block; margin:auto;">
+
+<script>
+    // Funksjon for å oppdatere lenkene basert på den gjeldende URL-en
+    function updateLinks() {
+        var currentPage = window.location.pathname;
+        var links = document.querySelectorAll('.w3-sidebar a');
+        links.forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href === currentPage) {
+                link.classList.add('w3-green');
+            } else {
+                link.classList.remove('w3-green');
+            }
+        });
+    }
+
+    function myAccFunc() {
+        var x = document.getElementById("demoAcc");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-green";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-green", "");
+        }
+    }
+
+    // Oppdater lenkene når siden lastes
+    window.onload = function() {
+        updateLinks();
+    };
+</script>
+
+</body>
+</html>

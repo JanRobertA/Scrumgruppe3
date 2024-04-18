@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retningslinjer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  text-align: center; /* Center the content within the navbar */
+}
+
+.navbar a {
+  display: inline-block; /* Change float to inline-block */
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  display: inline-block; /* Change float to inline-block */
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: blue;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  left: 50%; /* Center the dropdown */
+  transform: translateX(-50%); /* Center the dropdown */
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+</head>
+<body style="background-color:white;">
+
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Biblioteket sine retningslinjer
+    <div class="dropdown-content">
+    </div>
+  </div> 
+</div>
+
+<h5 style="text-align:center;">For at biblioteket skal fungere optimalt, er det viktig at alle gjør seg kjent med retningslinjene før de låner bøker.</h5>
+<div>
+        <p class="list-item">1. Husk å registrere boken som utlånt/levert dersom du skal låne/levere den.</p>
+        <p class="list-item">2. Behandle alle bøkene pent og lever de tilbake i tilnærmet samme tilstand som de var når du lånte dem.</p>
+        <p class="list-item">3. Lever bøkene til tidsfristen, så unngår du purremelding.</p>
+    </div>
+
+</body>
+
+<img src="boker.jpg" alt="Boker" style="width:50%; display:block; margin:auto;">
+
+</html>

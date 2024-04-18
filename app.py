@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -46,10 +47,21 @@ def load_user(user_id):
     return Users.query.get(int(user_id))
 
 
+def get_time_greeting():
+    now = datetime.now()
+    if 5 <= now.hour < 12:
+        return "God morgen!"
+    elif 12 <= now.hour < 18:
+        return "God ettermiddag!"
+    else:
+        return "God kveld!"
+
+
 # Hovedside
 @app.route('/')
 def index():
-    return render_template('Nettside.html')77777
+    greeting = get_time_greeting()
+    return render_template('Nettside.html', greeting=greeting)
 
 
 # Innloggingsside
@@ -78,7 +90,8 @@ def login():
 @login_required
 def admin():
     if current_user.rolle == 'admin':
-        return render_template('admin.html', navn=current_user.fornavn)
+        greeting = get_time_greeting()
+        return render_template('admin.html', navn=current_user.fornavn, greeting=greeting)
     else:
         flash('Du har ikke tilgang til denne siden.', 'danger')
         return redirect(url_for('index'))
@@ -89,7 +102,8 @@ def admin():
 @login_required
 def bibliotek():
     if current_user.rolle == 'student' or current_user.rolle == 'admin':
-        return render_template('bibliotek.html', navn=current_user.fornavn)
+        greeting = get_time_greeting()
+        return render_template('bibliotek.html', navn=current_user.fornavn, greeting=greeting)
     else:
         flash('Du har ikke tilgang til denne siden.', 'danger')
         return redirect(url_for('index'))
@@ -135,6 +149,40 @@ def register():
 def about():
     # Rendrer malen about.html med den spesifikke meldingen
     return render_template('about.html')
+
+
+# Legg til dine ruter for Purringer og Brukere her
+@app.route('/Purringer')
+def purringer():
+    return render_template('Purringer.html')
+
+@app.route('/Brukere')
+def brukere():
+    student_users = Users.query.filter_by(rolle='student').all()
+    return render_template('Brukere.html', student_users=student_users)
+
+@app.route('/Litteratur_oversikt')
+def litteratur_oversikt():
+    return render_template('Litteratur_oversikt.html')
+
+
+@app.route('/endre_litteratur')
+def endre_litteratur():
+    return render_template('endre_litteratur.html')
+
+
+@app.route('/loan_book')
+def loan_book():
+    return render_template('loan_book.html')
+
+
+@app.route('/availablebooks')
+def availablebooks():
+    return render_template('availablebooks.html')
+
+@app.route('/your_loands')
+def your_loands():
+    return render_template('your_loands.html')
 
 
 if __name__ == '__main__':
