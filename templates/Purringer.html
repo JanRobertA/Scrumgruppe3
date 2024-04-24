@@ -12,6 +12,59 @@
             margin-right: auto;
             width: 50%;
         }
+
+        .reminder-details {
+            margin-bottom: 20px;
+        }
+
+        .reminder-details h3 {
+            margin-bottom: 10px;
+        }
+
+        .reminder-details ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reminder-details li {
+            margin-bottom: 5px;
+        }
+
+        .reminder-message {
+            margin-top: 10px;
+        }
+
+        /* Styling for popup-boksen */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+
+        /* Styling for lukkeknappen */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* Styling for flash-meldinger */
+        .flash-message {
+            background-color: #f2dede;
+            color: #a94442;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -32,18 +85,50 @@
         </button>
         <div id="demoDrop" class="w3-dropdown-content w3-bar-block w3-white w3-card">
             <a href="/Litteratur_oversikt" class="w3-bar-item w3-button">Litteratur oversikt</a>
-            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til/fjern litteratur</a>
-
+            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til litteratur</a>
+            <a href="/slette_litteratur" class="w3-bar-item w3-button">Slette litteratur</a>
         </div>
     </div>
     <a href="/Retningslinjer" class="w3-bar-item w3-button">Retningslinjer</a>
-        <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
+    <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
 
 </div>
 
 <div class="w3-container" style="margin-left:160px">
     <h2>Purringer</h2>
+    <!-- Flash-meldinger -->
+    {% for message in get_flashed_messages() %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+
     <p>Her kan du få oversikt over purringer.</p>
+
+    {% for loan in active_loans %}
+    <div class="reminder-details">
+        <h3>Student: {{ loan.user.fornavn }} {{ loan.user.etternavn }}</h3>
+        <ul>
+            <li>Bok: {{ loan.book.tittel }}</li>
+            <li>Utlånsdato: {{ loan.utlånsdato }}</li>
+        </ul>
+
+        <div class="reminder-message">
+            <form id="reminderForm{{ loan.loan_id }}" action="/send_reminder" method="post">
+                <input type="hidden" name="loan_id" value="{{ loan.loan_id }}"/>
+                <input type="text" name="message" value="{{ message }}"/>
+                <button type="submit">Send Purring</button> <!-- Endret knappens type til submit -->
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- Popup-boks for flash-meldinger -->
+<div class="popup" id="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <p id="popupText"></p>
 </div>
 
 <script>
@@ -57,18 +142,14 @@ function myAccFunc() {
         x.previousElementSibling.className =
         x.previousElementSibling.className.replace(" w3-blue", "");
     }
+
+
 }
 
-function myDropFunc() {
-    var x = document.getElementById("demoDrop");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-blue";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className =
-        x.previousElementSibling.className.replace(" w3-blue", "");
-    }
+
+function closePopup() {
+    var popup = document.getElementById('popup');
+    popup.style.display = 'none';
 }
 </script>
 

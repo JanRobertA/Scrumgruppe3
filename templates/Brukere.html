@@ -32,7 +32,8 @@
         </button>
         <div id="demoDrop" class="w3-dropdown-content w3-bar-block w3-white w3-card">
             <a href="/Litteratur_oversikt" class="w3-bar-item w3-button">Litteratur oversikt</a>
-            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til/fjern litteratur</a>
+            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til litteratur</a>
+        <a href="/slette_litteratur" class="w3-bar-item w3-button">Slette litteratur</a>
         </div>
     </div>
     <a href="/Retningslinjer" class="w3-bar-item w3-button">Retningslinjer</a>
@@ -44,6 +45,32 @@
     <h2>Brukeradministrasjon</h2>
     <p>{{ greeting }}! Velkommen {{ navn }} til siden for brukeradministrasjon!</p>
     <p>Her kan du administrere brukere og utføre ulike operasjoner.</p>
+
+    <h3>Studentbrukere</h3>
+    <table class="w3-table-all">
+        <thead>
+            <tr class="w3-blue">
+                <th>Fornavn</th>
+                <th>Etternavn</th>
+                <th>E-post</th>
+                <th>Telefonnummer</th>
+                <th>Adresse</th>
+                <th>Registreringsdato</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in student_users %}
+            <tr>
+                <td>{{ user.fornavn }}</td>
+                <td>{{ user.etternavn }}</td>
+                <td>{{ user.epost }}</td>
+                <td>{{ user.telefonnummer }}</td>
+                <td>{{ user.adresse }}</td>
+                <td>{{ user.registreringsdato }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <script>

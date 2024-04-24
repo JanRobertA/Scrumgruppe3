@@ -46,6 +46,28 @@
         .w3-sidebar .w3-bar-item {
             font-size: 16px;
         }
+
+        /* Styling for popup-boksen */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+
+        /* Styling for lukkeknappen */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body style="background-color:white;">
@@ -66,22 +88,83 @@
         </button>
         <div id="demoDrop" class="w3-dropdown-content w3-bar-block w3-white w3-card">
             <a href="/Litteratur_oversikt" class="w3-bar-item w3-button">Litteratur oversikt</a>
-            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til/fjern litteratur</a>
-
+            <a href="/endre_litteratur" class="w3-bar-item w3-button">Legg til litteratur</a>
+            <a href="/slette_litteratur" class="w3-bar-item w3-button">Slette litteratur</a>
         </div>
     </div>
     <a href="/Retningslinjer" class="w3-bar-item w3-button">Retningslinjer</a>
-        <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
-
+    <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
 </div>
 
 <div class="w3-main">
     <h3>Legg til eller fjern litteratur i biblioteket jevnlig for å holde biblioteket oppdatert</h3>
+
+    <!-- Skjema for å legge til bok -->
+    <h4>Legg til bok</h4>
+    <form id="addBookForm" action="/endre_litteratur" method="POST">
+        <input type="text" name="tittel" placeholder="Tittel" required><br>
+        <input type="text" name="forfatter" placeholder="Forfatter" required><br>
+        <input type="text" name="isbn" placeholder="ISBN" required><br>
+        <input type="number" name="utgivelsesår" placeholder="Utgivelsesår" required><br>
+        <input type="text" name="kategori" placeholder="Kategori"><br>
+        <input type="submit" value="Legg til bok">
+    </form>
 </div>
 
 <img src="boker.jpg" alt="Boker" style="width:50%; display:block; margin:auto;">
 
+<!-- Flash-meldinger -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="popup">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <script>
+            // Vis popup-boksen når det er flash-meldinger tilgjengelig
+            document.addEventListener('DOMContentLoaded', function () {
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'block';
+            });
+
+            // Lukk popup-boksen når du klikker på lukkeknappen
+            function closePopup() {
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'none';
+            }
+        </script>
+    {% endif %}
+{% endwith %}
+
 <script>
+    function myAccFunc() {
+        var x = document.getElementById("demoAcc");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-green";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-green", "");
+        }
+    }
+
+    function myDropFunc() {
+        var x = document.getElementById("demoDrop");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-green";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-green", "");
+        }
+    }
+
     // Funksjon for å oppdatere lenkene basert på den gjeldende URL-en
     function updateLinks() {
         var currentPage = window.location.pathname;
@@ -96,23 +179,10 @@
         });
     }
 
-    function myAccFunc() {
-        var x = document.getElementById("demoAcc");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-green";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-            x.previousElementSibling.className =
-            x.previousElementSibling.className.replace(" w3-green", "");
-        }
-    }
-
     // Oppdater lenkene når siden lastes
     window.onload = function() {
         updateLinks();
     };
 </script>
-
 </body>
 </html>

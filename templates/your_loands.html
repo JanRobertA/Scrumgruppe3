@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="=UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dine lånte bøker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {
-            font-family:'Times New Roman', Times, serif;
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
             background-color: #ffffff;
             margin: 0;
         }
@@ -44,11 +43,11 @@
         li {
             margin-bottom: 10px;
         }
-        a {
+        a, button {
             color: #48a5a5;
             text-decoration: none;
         }
-        a:hover {
+        a:hover, button:hover {
             text-decoration: underline;
         }
         footer {
@@ -56,44 +55,59 @@
             text-align: right;
             padding-right: 20px;
         }
+        .flash-message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green; /* Color for success message */
+        }
     </style>
 </head>
 <body>
-    <h1></h1>
     <div class="w3-sidebar w3-bar-block w3-light-grey w3-card">
         <a href="{{ url_for('bibliotek') }}" class="w3-bar-item w3-button">Hjem</a>
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
             Min side <i class="fa fa-caret-down"></i>
         </button>
         <div id="demoAcc" class="w3-hide w3-white w3-card">
-            <a href="loan_book" class="w3-bar-item w3-button">Lån bøker</a>
-            <a href="availablebooks" class="w3-bar-item w3-button">Se tilgjengelige bøker</a>
-            <a href="your_loands" class="w3-bar-item w3-button">Se dine lånte bøker</a>
+            <a href="{{ url_for('availablebooks') }}" class="w3-bar-item w3-button">Se tilgjengelige bøker</a>
+            <a href="{{ url_for('your_loands') }}" class="w3-bar-item w3-button">Se dine lånte bøker</a>
         </div>
         <a href="retningslinjer.html" class="w3-bar-item w3-button">Retningslinjer</a>
-            <a href="logout" class="w3-bar-item w3-button">Logg ut</a>
-
+        <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button">Logg ut</a>
     </div>
     <div class="w3-main">
         <h2>Se dine lånte bøker</h2>
         <div class="container">
-
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message w3-pale-{{ category }} w3-border">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if books %}
+                <ul>
+                    {% for book in books %}
+                        <li>
+                            {{ book.tittel }} av {{ book.forfatter }}, lånt ut på {{ book.utgivelsesår }}
+                            <form action="{{ url_for('return_book', book_id=book.book_id) }}" method="post">
+                                <button type="submit" class="w3-btn w3-red">Lever boken</button>
+                                <a href="{{ url_for('add_review', book_id=book.book_id) }}" class="w3-btn w3-green">Gi Anmeldelse</a>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Du har ingen aktive lån for øyeblikket.</p>
+            {% endif %}
         </div>
         <footer>
         </footer>
     </div>
-
     <script>
-        doucement.querySelectorAll('.w3-sidebar a').forEach(link => {
-                link.addEventListener('click', function() {
-                    myAccFunc();
-                });
-
-            });
-
         function myAccFunc() {
             var x = document.getElementById("demoAcc");
-            if (x.className.indexOf("w3-show") == -1) {
+            if (x.className.indexOf("w3-show") === -1) {
                 x.className += " w3-show";
                 x.previousElementSibling.className += " w3-green";
             } else {
@@ -103,7 +117,5 @@
             }
         }
     </script>
-
 </body>
-
 </html>

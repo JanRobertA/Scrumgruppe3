@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reminders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="w3-container">
+    <h2>Reminders</h2>
+    <ul class="w3-ul w3-card-4">
+        {% for reminder in reminders %}
+        <li class="w3-bar">
+            <span class="w3-bar-item w3-right">{{ reminder.created_at }}</span>
+            <div class="w3-bar-item">
+                <span class="w3-large">{{ reminder.message }}</span><br>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>

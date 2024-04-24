@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Reminder</title>
+</head>
+<body>
+    <h1>Send Purring</h1>
+    <form method="post" action="/send_reminder">
+        <input type="hidden" name="loan_id" value="{{ loan_id }}">
+        <label for="message">Skriv inn purremelding:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+        <button type="submit">Send Purring</button>
+    </form>
+    <a href="{{ url_for('admin') }}">Tilbake til admin-siden</a>
+</body>
+</html>

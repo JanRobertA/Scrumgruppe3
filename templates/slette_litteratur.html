@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Litteratur oversikt</title>
+    <title>Slette litteratur</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -47,16 +47,26 @@
             font-size: 16px;
         }
 
-        /* Styling for bokliste */
-        .book-list {
-            list-style-type: none;
-            padding: 0;
+        /* Styling for popup-boksen */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            z-index: 9999;
         }
 
-        .book-list li {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
+        /* Styling for lukkeknappen */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -87,23 +97,44 @@
 </div>
 
 <div class="w3-main">
-    <h3>Litteratur oversikt</h3>
+    <h3>Slette litteratur</h3>
 
-    <!-- Liste over bøker -->
-    <ul class="book-list">
-        {% for book in books %}
-            <li>
-                <strong>ISBN:</strong> {{ book.isbn }}<br>
-                <strong>Tittel:</strong> {{ book.tittel }}<br>
-                <strong>Forfatter:</strong> {{ book.forfatter }}<br>
-                <strong>Kategori:</strong> {{ book.kategori }}<br>
-                <strong>Utgivelseår:</strong> {{ book.utgivelsesår }}<br>
-                <strong>Status:</strong> {{ book.status }}<br>
-                <!-- Legg til flere detaljer om boken om nødvendig -->
-            </li>
-        {% endfor %}
-    </ul>
+    <!-- Skjema for å slette bok -->
+    <form id="removeBookForm" action="/slette_litteratur" method="POST">
+        <label for="isbn">Vennligst tast inn ISBN for boken du ønsker å slette:</label><br>
+        <input type="text" id="isbn" name="isbn" placeholder="ISBN" required><br><br>
+        <input type="submit" value="Slett bok">
+    </form>
 </div>
+
+<img src="boker.jpg" alt="Boker" style="width:50%; display:block; margin:auto;">
+
+<!-- Flash-meldinger -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="popup">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <script>
+            // Vis popup-boksen når det er flash-meldinger tilgjengelig
+            document.addEventListener('DOMContentLoaded', function () {
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'block';
+            });
+
+            // Lukk popup-boksen når du klikker på lukkeknappen
+            function closePopup() {
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'none';
+            }
+        </script>
+    {% endif %}
+{% endwith %}
 
 <script>
     function myAccFunc() {
@@ -129,6 +160,25 @@
             x.previousElementSibling.className.replace(" w3-green", "");
         }
     }
+
+    // Funksjon for å oppdatere lenkene basert på den gjeldende URL-en
+    function updateLinks() {
+        var currentPage = window.location.pathname;
+        var links = document.querySelectorAll('.w3-sidebar a');
+        links.forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href === currentPage) {
+                link.classList.add('w3-green');
+            } else {
+                link.classList.remove('w3-green');
+            }
+        });
+    }
+
+    // Oppdater lenkene når siden lastes
+    window.onload = function() {
+        updateLinks();
+    };
 </script>
 </body>
 </html>
