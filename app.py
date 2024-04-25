@@ -226,6 +226,12 @@ def about():
 
 # Legg til dine ruter for Purringer og Brukere her
 
+
+
+@app.route('/Retningslinjer')
+def retningslinjer():
+    return render_template('Retningslinjer.html')
+
 @app.route('/Purringer', methods=['GET', 'POST'])
 @login_required
 def purringer():

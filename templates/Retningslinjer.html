@@ -2,96 +2,120 @@
 <html>
 <head>
     <title>Retningslinjer</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            padding: 20px;
+        }
 
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-  text-align: center; /* Center the content within the navbar */
-}
+        /* Navigation bar styles */
+        .w3-sidebar {
+            width: 160px;
+            background-color: #f3f3f3;
+            overflow: hidden;
+            position: fixed;
+            height: 100%;
+        }
 
-.navbar a {
-  display: inline-block; /* Change float to inline-block */
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+        .w3-sidebar a {
+            padding: 16px;
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            display: block;
+        }
 
-.dropdown {
-  display: inline-block; /* Change float to inline-block */
-  overflow: hidden;
-}
+        .w3-sidebar a:hover {
+            background-color: #ddd;
+        }
 
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
+        .w3-sidebar button {
+            width: 100%;
+            padding: 16px;
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            display: block;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            outline: none;
+        }
 
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: blue;
-}
+        .w3-sidebar button:hover {
+            background-color: #ddd;
+        }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  left: 50%; /* Center the dropdown */
-  transform: translateX(-50%); /* Center the dropdown */
-}
+        /* Main content styles */
+        .main-content {
+            margin-left: 160px;
+        }
 
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-}
+        /* Image styles */
+        .center-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            max-width: 100%;
+        }
 
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-</style>
+        /* Paragraph styles */
+        .paragraphs {
+            text-align: center;
+        }
+    </style>
 </head>
-<body style="background-color:white;">
+<body>
 
-<div class="navbar">
-  <div class="dropdown">
-    <button class="dropbtn">Biblioteket sine retningslinjer
-    <div class="dropdown-content">
+<!-- Navigation Bar -->
+<div class="w3-sidebar">
+  <a href="{{ url_for('admin') }}" class="w3-bar-item w3-butto w3-button">Hjem</a>
+    <button onclick="toggleDropdown('demoAcc')">Brukere <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc" class="w3-hide">
+        <a href="/Brukere">Brukere</a>
+        <a href="/Purringer">Purringer &#10069;</a>
     </div>
-  </div> 
+    <button onclick="toggleDropdown('demoDrop')">Litteratur <i class="fa fa-caret-down"></i></button>
+    <div id="demoDrop" class="w3-hide">
+        <a href="/Litteratur_oversikt">Litteratur oversikt</a>
+        <a href="/endre_litteratur">Legg til/fjern litteratur</a>
+    </div>
+    <a href="/Retningslinjer">Retningslinjer</a>
 </div>
 
-<h5 style="text-align:center;">For at biblioteket skal fungere optimalt, er det viktig at alle gjør seg kjent med retningslinjene før de låner bøker.</h5>
-<div>
-        <p class="list-item">1. Husk å registrere boken som utlånt/levert dersom du skal låne/levere den.</p>
-        <p class="list-item">2. Behandle alle bøkene pent og lever de tilbake i tilnærmet samme tilstand som de var når du lånte dem.</p>
-        <p class="list-item">3. Lever bøkene til tidsfristen, så unngår du purremelding.</p>
+<!-- Main Content -->
+<div class="main-content">
+
+    <!-- Paragraphs -->
+    <div class="paragraphs">
+        <h2>Retningslinjer for Biblioteket</h2>
+        <p>1. Husk å registrere boken som utlånt/levert dersom du skal låne/levere den.</p>
+        <p>2. Behandle alle bøkene pent og lever de tilbake i tilnærmet samme tilstand som de var når du lånte dem.</p>
+        <p>3. Lever bøkene til tidsfristen, så unngår du purremelding.</p>
     </div>
 
+    <!-- Image -->
+    <img src="{{ url_for('static', filename='boker.jpg') }}" class="center-image">
+
+</div>
+
+<!-- JavaScript for toggling dropdowns -->
+<script>
+    function toggleDropdown(id) {
+        var dropdown = document.getElementById(id);
+        if (dropdown.className.indexOf("w3-show") == -1) {
+            dropdown.className += " w3-show";
+        } else {
+            dropdown.className = dropdown.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
 </body>
-
-<img src="boker.jpg" alt="Boker" style="width:50%; display:block; margin:auto;">
-
 </html>
